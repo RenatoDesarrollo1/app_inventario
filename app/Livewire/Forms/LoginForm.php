@@ -12,14 +12,31 @@ use Livewire\Form;
 
 class LoginForm extends Form
 {
-    #[Validate('required|string|email')]
+    #[Validate]
     public string $email = '';
 
-    #[Validate('required|string')]
+    #[Validate]
     public string $password = '';
 
-    #[Validate('boolean')]
+    #[Validate]
     public bool $remember = false;
+
+    protected function rules()
+    {
+        return [
+            "email" => ["required", "string", "email"],
+            "password" => ["required", "string"],
+            "remember" => ["boolean"]
+        ];
+    }
+
+    protected function messages()
+    {
+        return [
+            "email.required" => "El email es requerido",
+            "password.required" => "La contraseña es requerida"
+        ];
+    }
 
     /**
      * Attempt to authenticate the request's credentials.
@@ -67,6 +84,6 @@ class LoginForm extends Form
      */
     protected function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->email).'|'.request()->ip());
+        return Str::transliterate(Str::lower($this->email) . '|' . request()->ip());
     }
 }
