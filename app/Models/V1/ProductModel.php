@@ -3,6 +3,7 @@
 namespace App\Models\V1;
 
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,9 +14,7 @@ class ProductModel extends Model
 
     protected $table = "inv_products";
 
-    protected $guarded = [
-        "id"
-    ];
+    protected $guarded = [];
 
     public function stateprod(): BelongsTo
     {
@@ -47,23 +46,23 @@ class ProductModel extends Model
         return $this->belongsTo(PersonnelModel::class, 'personnel_id', 'id');
     }
 
-    public function enviroment(): BelongsTo
+    public function environment(): BelongsTo
     {
-        return $this->belongsTo(EnvirommentModel::class, 'enviroment_id', 'id');
+        return $this->belongsTo(EnvironmentModel::class, 'environment_id', 'id');
     }
 
     public function brand(): BelongsTo
     {
-        return $this->belongsTo(EnvirommentModel::class, 'brand_id', 'id');
+        return $this->belongsTo(BrandModel::class, 'brand_id', 'id');
     }
 
     public function project(): BelongsTo
     {
-        return $this->belongsTo(EnvirommentModel::class, 'project_id', 'id');
+        return $this->belongsTo(ProjectModel::class, 'project_id', 'id');
     }
 
     public function provider(): BelongsTo
     {
-        return $this->belongsTo(EnvirommentModel::class, 'provider_id', 'id');
+        return $this->belongsTo(ProviderModel::class, 'provider_id', 'id');
     }
 }

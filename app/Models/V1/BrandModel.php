@@ -11,4 +11,6 @@ class BrandModel extends Model
     use HasUlids, HasFactory;
 
     protected $table = "inv_brands";
+
+    protected $guarded = [];
 }

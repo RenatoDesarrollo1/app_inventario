@@ -21,7 +21,7 @@ return new class extends Migration
             $table->ulid("class_id")->nullable();
             $table->ulid("type_prod_id")->nullable();
             $table->ulid("personnel_id")->nullable();
-            $table->ulid("enviroment_id")->nullable();
+            $table->ulid("environment_id")->nullable();
             $table->ulid("brand_id")->nullable();
             $table->ulid("project_id")->nullable();
             $table->date("adq_date")->nullable();
@@ -37,7 +37,7 @@ return new class extends Migration
             $table->foreign('class_id')->references('id')->on('inv_classes');
             $table->foreign('type_prod_id')->references('id')->on('inv_types_product');
             $table->foreign('personnel_id')->references('id')->on('inv_personnel');
-            $table->foreign('enviroment_id')->references('id')->on('inv_environments');
+            $table->foreign('environment_id')->references('id')->on('inv_environments');
             $table->foreign('brand_id')->references('id')->on('inv_brands');
             $table->foreign('project_id')->references('id')->on('inv_projects');
             $table->foreign('provider_id')->references('id')->on('inv_providers');

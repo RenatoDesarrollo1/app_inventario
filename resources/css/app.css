@@ -10,7 +10,6 @@
     min-height: 2.5rem;
 }
 
-
 .input:focus,
 .select:focus {
     @apply outline-none;
@@ -24,4 +23,13 @@
 .select-sm {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
+}
+
+.table :where(th, td) {
+    max-width: 300px;
+}
+
+[type="checkbox"].checkbox-sm {
+    height: 1.15rem;
+    width: 1.15rem;
 }
