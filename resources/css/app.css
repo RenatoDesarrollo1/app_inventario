@@ -10,13 +10,22 @@
     min-height: 2.5rem;
 }
 
+.textarea {
+    border-radius: 0.3rem;
+}
+
 .input:focus,
-.select:focus {
+.select:focus,
+.textarea:focus,
+.input:focus-within,
+.select:focus-within,
+.textarea:focus-within {
     @apply outline-none;
 }
 
 .input-primary,
-.select {
+.select,
+.textarea-primary {
     @apply border-gray-300;
 }
 
@@ -32,4 +41,29 @@
 [type="checkbox"].checkbox-sm {
     height: 1.15rem;
     width: 1.15rem;
+}
+
+.header-crud {
+    @apply mb-1;
+}
+.header-crud hr {
+    @apply my-3;
+}
+
+.choices-crud {
+    overflow: hidden;
+    white-space: nowrap;
+}
+.choices-crud .mary-choices-element {
+    max-width: 90%;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-selectsearch .dropdown {
+    width: 100%;
+}
+.dropdown-selectsearch .dropdown input {
+    border-style: solid;
 }

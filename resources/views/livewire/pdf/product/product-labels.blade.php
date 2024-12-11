@@ -18,7 +18,7 @@
         margin: 0px;
         padding: 0px;
         width: 100%;
-        font-size: 7.5pt;
+        font-size: 9pt;
     }
 
     table {
@@ -38,12 +38,12 @@
                 <tr>
                     @foreach ($group as $item)
                     @if (isset($item['id']))
-                    <td style="text-align:center; padding: 2.5pt 8.3386pt; width: 33%">
-                        <h6>INVENTARIO 2024</h6>
-                        <img style="margin: 3pt 0;"
+                    <td style="text-align:center; padding: 4pt 8.3386pt; width: 33%">
+                        <h6 style="font-size: 6pt;">Inventario 2024</h6>
+                        <img style="margin: 5pt 0;"
                             src="data:image/png;base64,{{ $item["barcode64"] }}" alt=""
-                            width="100%" height="14pt">
-                        <h6>{{ $item['barcode'] }}</h6>
+                            width="100%" height="18pt">
+                        <h6 style="font-size: 6pt;">{{ $item['barcode'] }}</h6>
                     </td>
                     @else
                     <td style="text-align:center; padding: 2.5pt 8.3386pt; width: 33%">

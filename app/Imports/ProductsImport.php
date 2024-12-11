@@ -141,14 +141,17 @@ class ProductsImport implements ToCollection
 
     protected function setProjects(Collection $rows)
     {
-
-        $projectNames = $rows->pluck(10)->unique();
+        $projectNames = new Collection();
+        $projectNamesarr = $rows->pluck(10)->unique();
+        foreach ($projectNamesarr as $key => $value) {
+            $projectNames[$key] = preg_replace('/\s+/', ' ', $value);
+        }
 
         $existingprojects = ProjectModel::whereIn('name', $projectNames)->pluck('id', 'name');
 
         $newprojectNames = $projectNames->diff($existingprojects->keys());
 
-        $newprojects = $newprojectNames->map(fn($name) => ['id' => strtolower((string) Str::ulid()), 'name' => $name]);
+        $newprojects = $newprojectNames->map(fn($name) => ['id' => strtolower((string) Str::ulid()), 'name' => preg_replace('/\s+/', ' ', $name)]);
         ProjectModel::insert($newprojects->toArray());
 
         return ProjectModel::whereIn('name', $projectNames)->pluck('id', 'name');
@@ -189,7 +192,7 @@ class ProductsImport implements ToCollection
         $productsToInsert = $rows->map(function ($row) use ($allStates, $allConditions, $allFamilies, $allClasses, $allTypesProd, $allPersonnel, $allEnvironments, $allBrands, $allProjects, $allProviders) {
             return [
                 'id' => strtolower((string) Str::ulid()),
-                'barcode' => $row[0],
+                'barcode' => str_pad($row[0], 6, "0", STR_PAD_LEFT),
                 'name' => $row[1],
                 'state_id' => $allStates[$row[2]],
                 'condition_id' => $allConditions[$row[3]],
@@ -199,8 +202,8 @@ class ProductsImport implements ToCollection
                 'personnel_id' => $allPersonnel[$row[7]],
                 'environment_id' => $allEnvironments[$row[8]],
                 'brand_id' => $allBrands[$row[9]],
-                'project_id' => $allProjects[$row[10]],
-                'adq_date' => date("Y-m-d", strtotime($row[11])),
+                'project_id' => $allProjects[preg_replace('/\s+/', ' ', $row[10])],
+                'adq_date' => $row[11],
                 'provider_id' => $allProviders[$row[12]],
                 'nro_doc' => $row[14],
                 'amount' => $row[15],

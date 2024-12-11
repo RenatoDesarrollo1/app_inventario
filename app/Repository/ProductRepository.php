@@ -8,10 +8,10 @@ use App\Models\V1\ProductModel;
 class ProductRepository implements ProductInterface
 {
 
-    public function getAllPaginated($page, $perPage, $sortBy)
+    public function getAllPaginated($page, $perPage, $sort, $filter)
     {
 
-        return ProductModel::withAggregate('stateprod', 'name')
+        $products = ProductModel::withAggregate('stateprod', 'name')
             ->withAggregate('condition', 'name')
             ->withAggregate('family', 'name')
             ->withAggregate('class', 'name')
@@ -21,8 +21,26 @@ class ProductRepository implements ProductInterface
             ->withAggregate('brand', 'name')
             ->withAggregate('project', 'name')
             ->withAggregate('provider', 'name')
-            ->withAggregate('provider', 'doc')
-            ->orderBy(...array_values($sortBy))
-            ->paginate(perPage: $perPage, page: $page);
+            ->withAggregate('provider', 'doc');
+
+        if (count($sort) > 0) {
+            foreach ($sort as $key => $value) {
+                $products = $products->orderBy($key, $value);
+            }
+        }
+
+        if (count($filter) > 0) {
+            foreach ($filter as $key => $item) {
+                if ($item["value"] != "") {
+                    if (isset($item['relation'])) {
+                        $products = $products->whereRelation($item['relation'], $item['column'], $item['operator'], "%" . $item['value'] . "%");
+                    } else {
+                        $products = $products->where($item['column'], $item['operator'], "%" . $item['value'] . "%");
+                    }
+                }
+            }
+        }
+
+        return $products->paginate(perPage: $perPage, page: $page);
     }
 }

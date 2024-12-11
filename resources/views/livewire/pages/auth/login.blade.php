@@ -26,7 +26,7 @@ new #[Layout('layouts.guest')] #[Title('Login')] class extends Component
     }
 }; ?>
 <div class="w-[450px] max-w-[100%]">
-    <x-card title="Sistema de inventario" subtitle="Cáritas del Perú" shadow separator>
+    <x-card title="Sistema de inventario" subtitle="" shadow separator>
         <x-form wire:submit="login">
             <x-input label="Email" placeholder="Email" icon="o-user" hint="Ingresa tu email" wire:model="form.email" clearable />
             <x-password label="Contraseña" placeholder="Contraseña" hint="Ingresa tu contraseña" wire:model="form.password" clearable />
